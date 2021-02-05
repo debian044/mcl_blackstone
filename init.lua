@@ -1,5 +1,10 @@
 local S = minetest.get_translator("mcl_blackstone")
 
+stairs = {}
+
+mesecons_button = {}
+
+
 --nodes
 
 
@@ -12,10 +17,23 @@ if mod_screwdriver then
 end
 local alldirs = {{x=0,y=0,z=1}, {x=1,y=0,z=0}, {x=0,y=0,z=-1}, {x=-1,y=0,z=0}, {x=0,y=-1,z=0}, {x=0,y=1,z=0}}
 
+--Blocks
 
 minetest.register_node("mcl_blackstone:blackstone", {
 	description = S("Blackstone"),
 	tiles = {"mcl_blackstone.png"},
+	is_ground_content = false,
+	groups = {cracky = 3, pickaxey=2, material_stone=1},
+	_mcl_blast_resistance = 2,
+	_mcl_hardness = 2,
+})
+
+minetest.register_node("mcl_blackstone:basalt_polished", {
+	description = S("Polished Basalt"),
+	tiles = {"mcl_blackstone_basalt_top_polished.png", "mcl_blackstone_basalt_top_polished.png", "mcl_blackstone_basalt_side_polished.png"},
+	paramtype2 = "facedir",
+	on_place = mcl_util.rotate_axis,
+	on_rotate = on_rotate,
 	is_ground_content = false,
 	groups = {cracky = 3, pickaxey=2, material_stone=1},
 	_mcl_blast_resistance = 2,
@@ -66,12 +84,79 @@ minetest.register_node("mcl_blackstone:blackstone_brick_polished", {
 	_mcl_hardness = 2,
 })
 
+--slabs/stairs
+
+mcl_stairs.register_slab("blackstone", "mcl_blackstone:blackstone",
+		{pickaxey=3},
+		{"mcl_blackstone.png"},
+		S("Blackstone Slab"),
+		nil, nil, nil,
+		S("Double Blackstone Slab"))
+mcl_stairs.register_stair("blackstone", "mcl_blackstone:blackstone",
+		{pickaxey=3},
+		{"mcl_blackstone.png"},
+		S("Blackstone Stairs"),
+		nil, 6, nil,
+		"woodlike")
+
+mcl_stairs.register_slab("blackstone_polished", "mcl_blackstone:blackstone_polished",
+		{pickaxey=3},
+		{"mcl_blackstone_polished.png"},
+		S("Polished Blackstone Slab"),
+		nil, nil, nil,
+		S("Double Polished Blackstone Slab"))
+mcl_stairs.register_stair("blackstone_polished", "mcl_blackstone:blackstone_polished",
+		{pickaxey=3},
+		{"mcl_blackstone_polished.png"},
+		S("Polished Blackstone Stairs"),
+		nil, 6, nil,
+		"woodlike")
+
+mcl_stairs.register_slab("blackstone_chieseled_polished", "mcl_blackstone:blackstone_chieseled_polished",
+		{pickaxey=3},
+		{"mcl_blackstone_chieseled_polished.png"},
+		S("Chieseled Polished Blackstone Slab"),
+		nil, nil, nil,
+		S("Double Chieseled Polished Blackstone Slab"))
+mcl_stairs.register_stair("blackstone_chieseled_polished", "mcl_blackstone:blackstonechieseled_polished",
+		{pickaxey=3},
+		{"mcl_blackstonechieseled_polished.png"},
+		S("Chieseled Polished Blackstone Stairs"),
+		nil, 6, nil,
+		"woodlike")
+
+
+mcl_stairs.register_slab("blackstone_brick_polished", "mcl_blackstone:blackstone_brick_polished",
+		{pickaxey=3},
+		{"mcl_blackstone_polished_bricks.png"},
+		S("Polished Blackstone Brick Slab"),
+		nil, nil, nil,
+		S("Double Blackstone Slab"))
+mcl_stairs.register_stair("blackstone", "mcl_blackstone:blackstone",
+		{pickaxey=3},
+		{"mcl_blackstone.png"},
+		S("Blackstone Stairs"),
+		nil, 6, nil,
+		"woodlike")
+
+
+
+
+
+
+--Wall
+
+mcl_walls.register_wall("mcl_blackstone:wall", S("Blackstone Wall"), "mcl_blackstone:blackstone")
+
+
+
+
 
 --lavacooling
 
 
 minetest.register_abm({
-	label = "Lava cooling",
+	label = "Lava cooling (basalt)",
 	nodenames = {"group:lava"},
 	neighbors = {"mcl_core:ice"},
 	interval = 1,
@@ -97,7 +182,7 @@ minetest.register_abm({
 
 
 minetest.register_abm({
-	label = "Lava cooling",
+	label = "Lava cooling (blackstone)",
 	nodenames = {"group:lava"},
 	neighbors = {"mcl_core:packed_ice"},
 	interval = 1,
@@ -132,6 +217,15 @@ minetest.register_craft({
 		{'mcl_blackstone:blackstone','mcl_blackstone:blackstone'},
 	}
 })
+
+minetest.register_craft({
+	output = 'mcl_blackstone:basalt_polished 4',
+	recipe = {
+		{'mcl_blackstone:basalt','mcl_blackstone:basalt'},
+		{'mcl_blackstone:basalt','mcl_blackstone:basalt'},
+	}
+})
+
 minetest.register_craft({
 	output = 'mcl_blackstone:blackstone_chiseled_polished 2',
 	recipe = {
@@ -156,9 +250,7 @@ minetest.register_craft({
 		{'', 'mcl_core:stick', ''},
 	}
 })
---[[
-mcl_stairs.register_stair_and_slab_simple("blackstone", "mcl_blackstone:blackstone", "Blackstone Stair", "Blackstone Slab", "Double Blackstone Slab")
-]]--
+
 
 minetest.register_craft({
 	output = 'mcl_tools:axe_stone',
@@ -236,3 +328,32 @@ minetest.register_craft({
 		{'mcl_core:ice','mcl_core:ice'},
 	}
 })
+
+--Generating
+
+
+local specialstones = { "mcl_blackstone:blackstone", "mcl_blackstone:basalt" }
+for s=1, #specialstones do
+	local node = specialstones[s]
+	minetest.register_ore({
+		ore_type       = "blob",
+		ore            = node,
+		wherein        = {"mcl_nether:netherrack"},
+		clust_scarcity = 8*8*8,
+		clust_num_ores = 28,
+		clust_size     = 3,
+		y_min          = mcl_vars.mg_nether_min,
+		y_max          = mcl_vars.mg_nether_max,
+	})
+	minetest.register_ore({
+		ore_type       = "blob",
+		ore            = node,
+		wherein        = {"mcl_nether:netherrack"},
+		clust_scarcity = 8*8*8,
+		clust_num_ores = 40,
+		clust_size     = 5,
+		y_min          = mcl_vars.mg_nether_min,
+		y_max          = mcl_vars.mg_nether_max,
+	})
+end
+

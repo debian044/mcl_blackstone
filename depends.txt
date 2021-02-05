@@ -1,3 +1,8 @@
 mcl_core
 screwdriver
 mcl_stairs
+mclx_stairs
+mcl_walls
+mclx_fences
+mesecons_pressureplates
+mesecons_button
