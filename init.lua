@@ -87,55 +87,42 @@ minetest.register_node("mcl_blackstone:blackstone_brick_polished", {
 --slabs/stairs
 
 mcl_stairs.register_slab("blackstone", "mcl_blackstone:blackstone",
-		{pickaxey=3},
+		{pickaxey=2},
 		{"mcl_blackstone.png"},
 		S("Blackstone Slab"),
 		nil, nil, nil,
 		S("Double Blackstone Slab"))
 mcl_stairs.register_stair("blackstone", "mcl_blackstone:blackstone",
-		{pickaxey=3},
+		{pickaxey=2},
 		{"mcl_blackstone.png"},
 		S("Blackstone Stairs"),
 		nil, 6, nil,
 		"woodlike")
 
 mcl_stairs.register_slab("blackstone_polished", "mcl_blackstone:blackstone_polished",
-		{pickaxey=3},
+		{pickaxey=2},
 		{"mcl_blackstone_polished.png"},
 		S("Polished Blackstone Slab"),
 		nil, nil, nil,
 		S("Double Polished Blackstone Slab"))
 mcl_stairs.register_stair("blackstone_polished", "mcl_blackstone:blackstone_polished",
-		{pickaxey=3},
+		{pickaxey=2},
 		{"mcl_blackstone_polished.png"},
 		S("Polished Blackstone Stairs"),
 		nil, 6, nil,
 		"woodlike")
 
-mcl_stairs.register_slab("blackstone_chieseled_polished", "mcl_blackstone:blackstone_chieseled_polished",
-		{pickaxey=3},
-		{"mcl_blackstone_chieseled_polished.png"},
-		S("Chieseled Polished Blackstone Slab"),
-		nil, nil, nil,
-		S("Double Chieseled Polished Blackstone Slab"))
-mcl_stairs.register_stair("blackstone_chieseled_polished", "mcl_blackstone:blackstonechieseled_polished",
-		{pickaxey=3},
-		{"mcl_blackstonechieseled_polished.png"},
-		S("Chieseled Polished Blackstone Stairs"),
-		nil, 6, nil,
-		"woodlike")
-
 
 mcl_stairs.register_slab("blackstone_brick_polished", "mcl_blackstone:blackstone_brick_polished",
-		{pickaxey=3},
+		{pickaxey=2},
 		{"mcl_blackstone_polished_bricks.png"},
 		S("Polished Blackstone Brick Slab"),
 		nil, nil, nil,
-		S("Double Blackstone Slab"))
-mcl_stairs.register_stair("blackstone", "mcl_blackstone:blackstone",
-		{pickaxey=3},
-		{"mcl_blackstone.png"},
-		S("Blackstone Stairs"),
+		S("Double Polished Blackstone Brick Slab"))
+mcl_stairs.register_stair("blackstone_brick_polished", "mcl_blackstone:blackstone",
+		{pickaxey=2},
+		{"mcl_blackstone_polished_bricks.png"},
+		S("Polished Blackstone Brick Stairs"),
 		nil, 6, nil,
 		"woodlike")
 
