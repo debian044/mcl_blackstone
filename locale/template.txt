@@ -13,3 +13,4 @@ Blackstone Stairs=
 Polished Blackstone Stairs=
 Chieseled Polished Blackstone Stairs=
 Polished Blackstone Brick Stairs=
+Quartz Bricks=

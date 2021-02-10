@@ -6,3 +6,4 @@ mcl_walls
 mclx_fences
 mesecons_pressureplates
 mesecons_button
+mcl_sounds

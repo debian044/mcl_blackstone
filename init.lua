@@ -5,10 +5,6 @@ stairs = {}
 mesecons_button = {}
 
 
---nodes
-
-
-
 
 local mod_screwdriver = minetest.get_modpath("screwdriver") ~= nil
 local on_rotate
@@ -24,9 +20,11 @@ minetest.register_node("mcl_blackstone:blackstone", {
 	tiles = {"mcl_blackstone.png"},
 	is_ground_content = false,
 	groups = {cracky = 3, pickaxey=2, material_stone=1},
+	sounds = mcl_sounds.node_sound_stone_defaults(),
 	_mcl_blast_resistance = 2,
 	_mcl_hardness = 2,
 })
+
 
 minetest.register_node("mcl_blackstone:basalt_polished", {
 	description = S("Polished Basalt"),
@@ -34,6 +32,7 @@ minetest.register_node("mcl_blackstone:basalt_polished", {
 	paramtype2 = "facedir",
 	on_place = mcl_util.rotate_axis,
 	on_rotate = on_rotate,
+	sounds = mcl_sounds.node_sound_stone_defaults(),
 	is_ground_content = false,
 	groups = {cracky = 3, pickaxey=2, material_stone=1},
 	_mcl_blast_resistance = 2,
@@ -47,6 +46,7 @@ minetest.register_node("mcl_blackstone:basalt", {
 	paramtype2 = "facedir",
 	on_place = mcl_util.rotate_axis,
 	on_rotate = on_rotate,
+	sounds = mcl_sounds.node_sound_stone_defaults(),
 	is_ground_content = false,
 	groups = {cracky = 3, pickaxey=2, material_stone=1},
 	_mcl_blast_resistance = 2,
@@ -59,6 +59,7 @@ minetest.register_node("mcl_blackstone:blackstone_polished", {
 	description = S("Polished Blackstone"),
 	tiles = {"mcl_blackstone_polished.png"},
 	is_ground_content = false,
+	sounds = mcl_sounds.node_sound_stone_defaults(),
 	groups = {cracky = 3, pickaxey=2, material_stone=1},
 	_mcl_blast_resistance = 2,
 	_mcl_hardness = 2,
@@ -69,6 +70,7 @@ minetest.register_node("mcl_blackstone:blackstone_chiseled_polished", {
 	description = S("Chieseled Polished Blackstone"),
 	tiles = {"mcl_blackstone_chiseled_polished.png"},
 	is_ground_content = false,
+	sounds = mcl_sounds.node_sound_stone_defaults(),
 	groups = {cracky = 3, pickaxey=2, material_stone=1},
 	_mcl_blast_resistance = 2,
 	_mcl_hardness = 2,
@@ -79,6 +81,17 @@ minetest.register_node("mcl_blackstone:blackstone_brick_polished", {
 	description = S("Polished Blackstone Bricks"),
 	tiles = {"mcl_blackstone_polished_bricks.png"},
 	is_ground_content = false,
+	sounds = mcl_sounds.node_sound_stone_defaults(),
+	groups = {cracky = 3, pickaxey=2, material_stone=1},
+	_mcl_blast_resistance = 2,
+	_mcl_hardness = 2,
+})
+
+minetest.register_node("mcl_blackstone:quartz_brick", {
+	description = S("Quartz Bricks"),
+	tiles = {"mcl_backstone_quartz_bricks.png"},
+	is_ground_content = false,
+	sounds = mcl_sounds.node_sound_stone_defaults(),
 	groups = {cracky = 3, pickaxey=2, material_stone=1},
 	_mcl_blast_resistance = 2,
 	_mcl_hardness = 2,
@@ -202,6 +215,14 @@ minetest.register_craft({
 	recipe = {
 		{'mcl_blackstone:blackstone','mcl_blackstone:blackstone'},
 		{'mcl_blackstone:blackstone','mcl_blackstone:blackstone'},
+	}
+})
+
+minetest.register_craft({
+	output = 'mcl_blackstone:quartz_brick',
+	recipe = {
+		{'mcl_nether:quartz_block','mcl_nether:quartz_block'},
+		{'mcl_nether:quartz_block','mcl_nether:quartz_block'},
 	}
 })
 
