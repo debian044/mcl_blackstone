@@ -14,3 +14,7 @@ Polished Blackstone Stairs=
 Chieseled Polished Blackstone Stairs=
 Polished Blackstone Brick Stairs=
 Quartz Bricks=
+Soul Torch=
+Soul Lantern=
+Soul Soil=
+Eternal Soul Fire=

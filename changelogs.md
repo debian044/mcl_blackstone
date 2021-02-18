@@ -10,7 +10,7 @@ I added the new Polished Basalt Block and salbs and strairs for every kind of Bl
 
 Also new is the Blackstone Wall.
 
-
+New Soul soil, Soul Fire and Soul Fire Torches/Lanterns
 
 ## Generating
 
