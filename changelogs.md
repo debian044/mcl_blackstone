@@ -15,3 +15,11 @@ Also new is the Blackstone Wall.
 ## Generating
 
 Basalt and Blackstone now generate in the Nether naturaly.
+
+
+
+
+
+## Bugfixes
+
+I fixed a lot of Bugs.
