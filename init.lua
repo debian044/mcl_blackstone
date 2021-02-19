@@ -1022,7 +1022,7 @@ minetest.register_node("mcl_blackstone:soul_lantern", {
 
 minetest.register_craft({
     type = "shaped",
-    output = "mcl_blackstone:lantern",
+    output = "mcl_blackstone:soul_lantern",
     recipe = {
         {"mcl_core:iron_nugget", "mcl_core:iron_nugget","mcl_core:iron_nugget"},
         {"mcl_core:iron_nugget", "mcl_blackstone:soul_torch",  "mcl_core:iron_nugget"},
