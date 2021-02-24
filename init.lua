@@ -2,6 +2,27 @@ local S = minetest.get_translator("mcl_blackstone")
 
 stairs = {}
 
+local fire_help, eternal_fire_help
+if fire_enabled then
+	fire_help = S("Fire is a damaging and destructive but short-lived kind of block. It will destroy and spread towards near flammable blocks, but fire will disappear when there is nothing to burn left. It will be extinguished by nearby water and rain. Fire can be destroyed safely by punching it, but it is hurtful if you stand directly in it. If a fire is started above netherrack or a magma block, it will immediately turn into an eternal fire.")
+else
+	fire_help = S("Fire is a damaging but non-destructive short-lived kind of block. It will disappear when there is no flammable block around. Fire does not destroy blocks, at least not in this world. It will be extinguished by nearby water and rain. Fire can be destroyed safely by punching it, but it is hurtful if you stand directly in it. If a fire is started above netherrack or a magma block, it will immediately turn into an eternal fire.")
+end
+
+if fire_enabled then
+	eternal_fire_help = S("Eternal fire is a damaging block that might create more fire. It will create fire around it when flammable blocks are nearby. Eternal fire can be extinguished by punches and nearby water blocks. Other than (normal) fire, eternal fire does not get extinguished on its own and also continues to burn under rain. Punching eternal fire is safe, but it hurts if you stand inside.")
+else
+	eternal_fire_help = S("Eternal fire is a damaging block. Eternal fire can be extinguished by punches and nearby water blocks. Other than (normal) fire, eternal fire does not get extinguished on its own and also continues to burn under rain. Punching eternal fire is safe, but it hurts if you stand inside.")
+end
+
+
+local fire_death_messages = {
+	N("@1 has been cooked crisp."),
+	N("@1 felt the burn."),
+	N("@1 died in the flames."),
+	N("@1 died in a fire."),
+}
+
 --nodes
 
 
@@ -126,7 +147,7 @@ minetest.register_node("mcl_blackstone:soul_fire", {
 	buildable_to = true,
 	sunlight_propagates = true,
 	damage_per_second = 2,
-	_mcl_node_death_message = fire_death_messages,
+	_mcl_node_death_message = 
 	groups = {fire = 1, dig_immediate = 3, not_in_creative_inventory = 1, dig_by_piston = 1, destroys_items = 1, set_on_fire=8},
 	floodable = true,
 	on_flood = function(pos, oldnode, newnode)
@@ -941,7 +962,6 @@ mcl_torches.register_torch("soul_torch",
 		name = "soul_torch_on_floor_animated.png",
 		animation = {type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 3.3}
 	}},
-	LIGHT_TORCH,
 	{dig_immediate=3, torch=1, deco_block=1},
 	mcl_sounds.node_sound_wood_defaults(),
 	{_doc_items_hidden = false,
