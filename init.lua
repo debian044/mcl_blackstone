@@ -1,5 +1,6 @@
 local S = minetest.get_translator("mcl_blackstone")
 local N = function(s) return s end
+local LIGHT_TORCH = 10
 
 stairs = {}
 
@@ -663,10 +664,7 @@ end
 
 
 
---[[torches
-
-
-
+--torches
 local spawn_flames_floor = function(pos)
 	-- Flames
 	mcl_particles.add_node_particlespawner(pos, {
@@ -808,8 +806,8 @@ end
 mcl_torches = {}
 
 mcl_torches.register_torch = function(substring, description, doc_items_longdesc, doc_items_usagehelp, icon, mesh_floor, mesh_wall, tiles, light, groups, sounds, moredef, moredef_floor, moredef_wall)
-	local itemstring = "mcl_blackstone:soul_torch"
-	local itemstring_wall = "mcl_blackstone:soul_torch_wall"
+	local itemstring = minetest.get_current_modname()..":"..substring
+	local itemstring_wall = minetest.get_current_modname()..":"..substring.."_wall"
 
 	if light == nil then light = minetest.LIGHT_MAX end
 	if mesh_floor == nil then mesh_floor = "mcl_torches_torch_floor.obj" end
@@ -822,7 +820,7 @@ mcl_torches.register_torch = function(substring, description, doc_items_longdesc
 	groups.destroy_by_lava_flow = 1
 	groups.dig_by_piston = 1
 
-	minetest.register_node(itemstring, {
+	local floordef = {
 		description = description,
 		_doc_items_longdesc = doc_items_longdesc,
 		_doc_items_usagehelp = doc_items_usagehelp,
@@ -837,7 +835,7 @@ mcl_torches.register_torch = function(substring, description, doc_items_longdesc
 		is_ground_content = false,
 		walkable = false,
 		liquids_pointable = false,
-		light_source = 10,
+		light_source = light,
 		groups = groups,
 		drop = itemstring,
 		selection_box = {
@@ -896,7 +894,18 @@ mcl_torches.register_torch = function(substring, description, doc_items_longdesc
 			return itemstack
 		end,
 		on_rotate = false,
-	})
+	}
+	if moredef ~= nil then
+		for k,v in pairs(moredef) do
+			floordef[k] = v
+		end
+	end
+	if moredef_floor ~= nil then
+		for k,v in pairs(moredef_floor) do
+			floordef[k] = v
+		end
+	end
+	minetest.register_node(itemstring, floordef)
 
 	local groups_wall = table.copy(groups)
 	groups_wall.torch = 2
@@ -910,7 +919,7 @@ mcl_torches.register_torch = function(substring, description, doc_items_longdesc
 		sunlight_propagates = true,
 		is_ground_content = false,
 		walkable = false,
-		light_source = 10,
+		light_source = light,
 		groups = groups_wall,
 		drop = itemstring,
 		selection_box = {
@@ -944,7 +953,7 @@ end
 
 mcl_torches.register_torch("soul_torch",
 	S("Soul Torch"),
-	S(""),
+	S("Torches are light sources which can be placed at the side or on the top of most blocks."),
 	nil,
 	"soul_torch_on_floor.png",
 	"mcl_torches_torch_floor.obj", "mcl_torches_torch_wall.obj",
@@ -952,6 +961,7 @@ mcl_torches.register_torch("soul_torch",
 		name = "soul_torch_on_floor_animated.png",
 		animation = {type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 3.3}
 	}},
+	LIGHT_TORCH,
 	{dig_immediate=3, torch=1, deco_block=1},
 	mcl_sounds.node_sound_wood_defaults(),
 	{_doc_items_hidden = false,
@@ -974,28 +984,19 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
-	output = "mcl_blackstone:soul_torch 4",
-	recipe = {
-		{ "mcl_blackstone:soul_soil" },
-		{ "mcl_core:stick" },
-	}
-})
-
 minetest.register_lbm({
 	label = "Torch flame particles",
 	name = "mcl_blackstone:flames",
-	nodenames = {"mcl_torches:soul_torch", "mcl_torches:soul_torch_wall"},
+	nodenames = {"mcl_blackstone:soul_torch", "mcl_blackstone:soul_torch_wall"},
 	run_at_every_load = true,
 	action = function(pos, node)
-		if node.name == "mcl_torches:soul_torch" then
+		if node.name == "mcl_blackstone:soul_torch" then
 			spawn_flames_floor(pos)
-		elseif node.name == "mcl_torches:soul_torch_wall" then
+		elseif node.name == "mcl_blackstone:soul_torch" then
 			spawn_flames_wall(pos, node.param2)
 		end
 	end,
 })
-]]--
 
 
 minetest.register_node("mcl_blackstone:soul_lantern", { 
