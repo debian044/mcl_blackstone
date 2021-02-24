@@ -1,4 +1,5 @@
 local S = minetest.get_translator("mcl_blackstone")
+local N = function(s) return s end
 
 stairs = {}
 
@@ -147,7 +148,7 @@ minetest.register_node("mcl_blackstone:soul_fire", {
 	buildable_to = true,
 	sunlight_propagates = true,
 	damage_per_second = 2,
-	_mcl_node_death_message = 
+	_mcl_node_death_message = fire_death_messages,
 	groups = {fire = 1, dig_immediate = 3, not_in_creative_inventory = 1, dig_by_piston = 1, destroys_items = 1, set_on_fire=8},
 	floodable = true,
 	on_flood = function(pos, oldnode, newnode)
@@ -662,7 +663,7 @@ end
 
 
 
---torches
+--[[torches
 
 
 
@@ -807,8 +808,8 @@ end
 mcl_torches = {}
 
 mcl_torches.register_torch = function(substring, description, doc_items_longdesc, doc_items_usagehelp, icon, mesh_floor, mesh_wall, tiles, light, groups, sounds, moredef, moredef_floor, moredef_wall)
-	local itemstring = minetest.get_current_modname()..":"..substring
-	local itemstring_wall = minetest.get_current_modname()..":"..substring.."_wall"
+	local itemstring = "mcl_blackstone:soul_torch"
+	local itemstring_wall = "mcl_blackstone:soul_torch_wall"
 
 	if light == nil then light = minetest.LIGHT_MAX end
 	if mesh_floor == nil then mesh_floor = "mcl_torches_torch_floor.obj" end
@@ -821,7 +822,7 @@ mcl_torches.register_torch = function(substring, description, doc_items_longdesc
 	groups.destroy_by_lava_flow = 1
 	groups.dig_by_piston = 1
 
-	local floordef = {
+	minetest.register_node(itemstring, {
 		description = description,
 		_doc_items_longdesc = doc_items_longdesc,
 		_doc_items_usagehelp = doc_items_usagehelp,
@@ -895,18 +896,7 @@ mcl_torches.register_torch = function(substring, description, doc_items_longdesc
 			return itemstack
 		end,
 		on_rotate = false,
-	}
-	if moredef ~= nil then
-		for k,v in pairs(moredef) do
-			floordef[k] = v
-		end
-	end
-	if moredef_floor ~= nil then
-		for k,v in pairs(moredef_floor) do
-			floordef[k] = v
-		end
-	end
-	minetest.register_node(itemstring, floordef)
+	})
 
 	local groups_wall = table.copy(groups)
 	groups_wall.torch = 2
@@ -1005,7 +995,7 @@ minetest.register_lbm({
 		end
 	end,
 })
-
+]]--
 
 
 minetest.register_node("mcl_blackstone:soul_lantern", { 
