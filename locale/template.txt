@@ -18,3 +18,5 @@ Soul Torch=
 Soul Lantern=
 Soul Soil=
 Eternal Soul Fire=
+Gilded Blackstone=
+Nether Gold Ore=

@@ -44,15 +44,61 @@ local alldirs = {{x=0,y=0,z=1}, {x=1,y=0,z=0}, {x=0,y=0,z=-1}, {x=-1,y=0,z=0}, {
 minetest.register_node("mcl_blackstone:blackstone", {
 	description = S("Blackstone"),
 	tiles = {"mcl_blackstone.png"},
+	sounds = mcl_sounds.node_sound_stone_defaults(),
 	is_ground_content = false,
 	groups = {cracky = 3, pickaxey=2, material_stone=1},
 	_mcl_blast_resistance = 2,
 	_mcl_hardness = 2,
 })
 
+minetest.register_node("mcl_blackstone:blackstone_gilded", {
+	description = S("Gilded Blackstone"),
+	tiles = {"mcl_blackstone.png^mcl_blackstone_gilded_side.png"},
+	sounds = mcl_sounds.node_sound_stone_defaults(),
+	is_ground_content = false,
+	groups = {cracky = 3, pickaxey=2, material_stone=1, xp=1},
+	drop = {
+		max_items = 1,
+		items = {
+			{items = {'mcl_core:gold_nugget 2'},rarity = 5},
+			{items = {'mcl_core:gold_nugget 3'},rarity = 5},
+			{items = {'mcl_core:gold_nugget 4'},rarity = 5},
+			{items = {'mcl_core:gold_nugget 5'},rarity = 5},
+			{items = {'mcl_blackstone:blackstone_gilded'}, rarity = 8},
+		}
+	},
+	_mcl_blast_resistance = 2,
+	_mcl_hardness = 2,
+	_mcl_silk_touch_drop = true,
+	_mcl_fortune_drop = mcl_core.fortune_drop_ore,
+})
+
+minetest.register_node("mcl_blackstone:nether_gold", {
+	description = S("Nether Gold Ore"),
+	tiles = {"mcl_nether_netherrack.png^mcl_blackstone_gilded_side.png"},
+	sounds = mcl_sounds.node_sound_stone_defaults(),
+	is_ground_content = false,
+	groups = {cracky = 3, pickaxey=2, material_stone=1, xp=1},
+	drop = {
+		max_items = 1,
+		items = {
+			{items = {'mcl_core:gold_nugget 2'},rarity = 5},
+			{items = {'mcl_core:gold_nugget 3'},rarity = 5},
+			{items = {'mcl_core:gold_nugget 4'},rarity = 5},
+			{items = {'mcl_core:gold_nugget 5'},rarity = 5},
+			{items = {'mcl_blackstone:nether_gold'}, rarity = 8},
+		}
+	},
+	_mcl_blast_resistance = 2,
+	_mcl_hardness = 2,
+	_mcl_silk_touch_drop = true,
+	_mcl_fortune_drop = mcl_core.fortune_drop_ore,
+})
+
 minetest.register_node("mcl_blackstone:basalt_polished", {
 	description = S("Polished Basalt"),
 	tiles = {"mcl_blackstone_basalt_top_polished.png", "mcl_blackstone_basalt_top_polished.png", "mcl_blackstone_basalt_side_polished.png"},
+	sounds = mcl_sounds.node_sound_stone_defaults(),
 	paramtype2 = "facedir",
 	on_place = mcl_util.rotate_axis,
 	on_rotate = on_rotate,
@@ -66,9 +112,20 @@ minetest.register_node("mcl_blackstone:basalt_polished", {
 minetest.register_node("mcl_blackstone:basalt", {
 	description = S("Basalt"),
 	tiles = {"mcl_blackstone_basalt_top.png", "mcl_blackstone_basalt_top.png", "mcl_blackstone_basalt_side.png"},
+	sounds = mcl_sounds.node_sound_stone_defaults(),
 	paramtype2 = "facedir",
 	on_place = mcl_util.rotate_axis,
 	on_rotate = on_rotate,
+	is_ground_content = false,
+	groups = {cracky = 3, pickaxey=2, material_stone=1},
+	_mcl_blast_resistance = 2,
+	_mcl_hardness = 2,
+})
+
+minetest.register_node("mcl_blackstone:basalt_smooth", {
+	description = S("Smooth Basalt"),
+	tiles = {"mcl_blackstone_basalt_smooth.png"},
+	sounds = mcl_sounds.node_sound_stone_defaults(),
 	is_ground_content = false,
 	groups = {cracky = 3, pickaxey=2, material_stone=1},
 	_mcl_blast_resistance = 2,
@@ -80,6 +137,7 @@ minetest.register_node("mcl_blackstone:basalt", {
 minetest.register_node("mcl_blackstone:blackstone_polished", {
 	description = S("Polished Blackstone"),
 	tiles = {"mcl_blackstone_polished.png"},
+	sounds = mcl_sounds.node_sound_stone_defaults(),
 	is_ground_content = false,
 	groups = {cracky = 3, pickaxey=2, material_stone=1},
 	_mcl_blast_resistance = 2,
@@ -90,6 +148,7 @@ minetest.register_node("mcl_blackstone:blackstone_polished", {
 minetest.register_node("mcl_blackstone:blackstone_chiseled_polished", {
 	description = S("Chiseled Polished Blackstone"),
 	tiles = {"mcl_blackstone_chiseled_polished.png"},
+	sounds = mcl_sounds.node_sound_stone_defaults(),
 	is_ground_content = false,
 	groups = {cracky = 3, pickaxey=2, material_stone=1},
 	_mcl_blast_resistance = 2,
@@ -100,6 +159,7 @@ minetest.register_node("mcl_blackstone:blackstone_chiseled_polished", {
 minetest.register_node("mcl_blackstone:blackstone_brick_polished", {
 	description = S("Polished Blackstone Bricks"),
 	tiles = {"mcl_blackstone_polished_bricks.png"},
+	sounds = mcl_sounds.node_sound_stone_defaults(),
 	is_ground_content = false,
 	groups = {cracky = 3, pickaxey=2, material_stone=1},
 	_mcl_blast_resistance = 2,
@@ -109,6 +169,7 @@ minetest.register_node("mcl_blackstone:blackstone_brick_polished", {
 minetest.register_node("mcl_blackstone:quartz_brick", {
 	description = S("Quartz Bricks"),
 	tiles = {"mcl_backstone_quartz_bricks.png"},
+	sounds = mcl_sounds.node_sound_stone_defaults(),
 	is_ground_content = false,
 	sounds = mcl_sounds.node_sound_stone_defaults(),
 	groups = {cracky = 3, pickaxey=2, material_stone=1},
@@ -121,7 +182,7 @@ minetest.register_node("mcl_blackstone:soul_soil", {
 	tiles = {"mcl_blackstone_soul_soil.png"},
 	is_ground_content = false,
 	sounds = mcl_sounds.node_sound_sand_defaults(),
-	groups = {cracky = 3, shovely=1},
+	groups = {cracky = 3, handy=1, shovely=1},
 	_mcl_blast_resistance = 0.5,
 	_mcl_hardness = 0.5,
 })
@@ -442,6 +503,13 @@ minetest.register_craft({
 	}
 })
 
+minetest.register_craft({
+	type = "cooking",
+	output = 'mcl_blackstone:basalt_smooth',
+	recipe = 'mcl_blackstone:basalt',
+	cooktime = 10,
+})
+
 --Generating
 
 
@@ -452,7 +520,7 @@ for s=1, #specialstones do
 		ore_type       = "blob",
 		ore            = node,
 		wherein        = {"mcl_nether:netherrack"},
-		clust_scarcity = 8*8*8,
+		clust_scarcity = 830,
 		clust_num_ores = 28,
 		clust_size     = 3,
 		y_min          = mcl_vars.mg_nether_min,
@@ -469,6 +537,39 @@ for s=1, #specialstones do
 		y_max          = mcl_vars.mg_nether_max,
 	})
 end
+
+	minetest.register_ore({
+		ore_type       = "scatter",
+		ore            = "mcl_blackstone:blackstone_gilded",
+		wherein        = "mcl_blackstone:blackstone",
+		clust_scarcity = 4775,
+		clust_num_ores = 2,
+		clust_size     = 2,
+		y_min          = mcl_vars.mg_nether_min,
+		y_max          = mcl_vars.mg_nether_max,
+	})
+
+	minetest.register_ore({
+		ore_type       = "scatter",
+		ore            = "mcl_blackstone:nether_gold",
+		wherein        = "mcl_nether:netherrack",
+		clust_scarcity = 830,
+		clust_num_ores = 5,
+		clust_size     = 3,
+		y_min          = mcl_vars.mg_nether_min,
+		y_max          = mcl_vars.mg_nether_max,
+	})
+	minetest.register_ore({
+		ore_type       = "scatter",
+		ore            = "mcl_blackstone:nether_gold",
+		wherein        = "mcl_nether:netherrack",
+		clust_scarcity = 1660,
+		clust_num_ores = 4,
+		clust_size     = 2,
+		y_min          = mcl_vars.mg_nether_min,
+		y_max          = mcl_vars.mg_nether_max,
+	})
+
 
 
 --This is in progress
@@ -517,9 +618,10 @@ end
 		y_min = mcl_vars.mg_nether_min,
 		node_riverbed = "mcl_core:lava_source",
 		depth_riverbed = 2,
-		y_max = mcl_vars.mg_nether_max + 80,
+		y_max = mcl_vars.mg_nether_max,
 		humidity_point = 36,
 		heat_point = 100,
+		spread = {x = 1, y = 1, z = 1},
 		humidity_point = 0,
 		_mcl_biome_type = "hot",
 		_mcl_palette_index = 12,
@@ -658,8 +760,8 @@ for s=1, #specialstones do
 		y_max          = mcl_vars.mg_nether_max,
 	})
 end
-
 ]]--
+
 
 
 
