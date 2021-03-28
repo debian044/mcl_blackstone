@@ -20,3 +20,4 @@ Soul Soil=
 Eternal Soul Fire=
 Gilded Blackstone=
 Nether Gold Ore=
+Smooth Basalt=

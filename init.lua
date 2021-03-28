@@ -510,6 +510,13 @@ minetest.register_craft({
 	cooktime = 10,
 })
 
+minetest.register_craft({
+	type = "cooking",
+	output = 'mcl_core:gold_ingot',
+	recipe = 'mcl_blackstone:nether_gold',
+	cooktime = 10,
+})
+
 --Generating
 
 
