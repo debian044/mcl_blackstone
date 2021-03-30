@@ -514,7 +514,7 @@ minetest.register_craft({
 minetest.register_craft({
 	type = "cooking",
 	output = 'mcl_core:gold_ingot',
-	recipe = 'mcl_blackstone:gilded_blackstone',
+	recipe = 'mcl_blackstone:blackstone_gilded',
 	cooktime = 10,
 })
 
