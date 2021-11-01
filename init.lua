@@ -122,16 +122,6 @@ minetest.register_node("mcl_blackstone:basalt", {
 	_mcl_hardness = 2,
 })
 
---[[minetest.register_node("mcl_blackstone:basalt_smooth", {
-	description = S("Smooth Basalt"),
-	tiles = {"mcl_blackstone_basalt_smooth.png"},
-	sounds = mcl_sounds.node_sound_stone_defaults(),
-	is_ground_content = false,
-	groups = {cracky = 3, pickaxey=2, material_stone=1},
-	_mcl_blast_resistance = 2,
-	_mcl_hardness = 2,
-})
-]]--
 
 
 minetest.register_node("mcl_blackstone:blackstone_polished", {
@@ -219,32 +209,7 @@ minetest.register_node("mcl_blackstone:soul_fire", {
 		end
 	end,
 })
---[[
-minetest.register_node("mcl_blackstone:chain", {
-	description = S("Chain"),
-	drawtype = "plantlike",
-	_doc_items_longdesc = S(""),
-	_doc_items_hidden = false,
-	paramtype2 = "facedir",
-	on_place = mcl_util.rotate_axis,
-	on_rotate = on_rotate,
-	tiles = {"mcl_blackstone_chain.png"},
-	inventory_image = "mcl_blackstone_chain_inv.png",
-	wield_image = "mcl_blackstone_chain_inv.png",
-	selection_box = {
-		type = "fixed",
-		fixed = {{ -2/16, -8/16, -2/16, 2/16, 8/16, 2/16 }},
-	},
-	paramtype = "light",
-	paramtype2 = "color",
-	walkable = false,
-	is_ground_content = true,
-	groups = {pickaxey=2,deco_block=1},
-	sounds = mcl_sounds.node_sound_stone_defaults(),
-	_mcl_blast_resistance = 2,
-	_mcl_hardness = 1,
-})
-]]--
+
 
 --slabs/stairs
 
@@ -264,34 +229,7 @@ mcl_stairs.register_stair_and_slab_simple("blackstone_brick_polished", "mcl_blac
 mcl_walls.register_wall("mcl_blackstone:wall", S("Blackstone Wall"), "mcl_blackstone:blackstone")
 
 
---Redstone Things
---[[
-mesecon.register_pressure_plate(
-	"mcl_blackstone:pressure_plate_blackstone",
-	S("Blackstone Pressure Plate"),
-	{"mcl_blackstone.png"},
-	{"mcl_blackstone.png"},
-	"mcl_blackstone.png",
-	nil,
-	{{"mcl_blackstone:blackstone", "mcl_blackstone:blackstone"}},
---	mcl_sounds.node_sound_stone_defaults(),
-	{pickaxey=1, material_stone=1},
-	{ player = true, mob = true },
-	S("A Blackstone pressure plate is a redstone component which supplies its surrounding blocks with redstone power while a player or mob stands on top of it. It is not triggered by anything else."))
 
-
-mesecon.register_button(
-	"stone",
-	S("Blacktone Button"),
-	"mcl_blackstone.png",
-	"mcl_blackstone:blackstone",
---	mcl_sounds.node_sound_stone_defaults(),
-	{material_stone=1,handy=1,pickaxey=1,cracky=3},
-	1,
-	false,
-	(""),
-	"mesecons_button_push")
-]]--
 --lavacooling
 
 
@@ -321,31 +259,7 @@ minetest.register_abm({
 })
 
 
---[[minetest.register_abm({
-	label = "Fire souling",
-	nodenames = {"mcl_nether:soul_sand"},
-	neighbors = {"mcl_fire:fire"},
-	interval = 1,
-	chance = 1,
-	action = function(pos, node, active_object_count, active_object_count_wider)
-		local water = minetest.find_nodes_in_area({x=pos.x-1, y=pos.y-1, z=pos.z-1}, {x=pos.x+1, y=pos.y+1, z=pos.z+1}, "mcl_fire:fire")
 
-		local lavatype = minetest.registered_nodes[node.name].liquidtype
-
-		for w=1, #water do
-			local waternode = minetest.get_node(water[w])
-			local watertype = minetest.registered_nodes[waternode.name].liquidtype
-			if water[w].y < pos.y and water[w].x == pos.x and water[w].z == pos.z then
-				minetest.set_node(water[w], {name="mcl_blackstone:soul_fire"})
-			elseif lavatype == "flowing" and water[w].y == pos.y and (water[w].x == pos.x or water[w].z == pos.z) then
-				minetest.set_node(pos, {name="mcl_blackstone:soul_fire"})
-			elseif lavatype == "flowing" and water[w].y > pos.y and water[w].x == pos.x and water[w].z == pos.z then
-				minetest.set_node(pos, {name="mcl_blackstone:soul_fire"})
-			end
-		end
-	end,
-})
-]]--
 
 minetest.register_abm({
 	label = "Lava cooling (blackstone)",
@@ -587,201 +501,13 @@ end
 
 
 
---This is in progress
-
---[[
-local specialstones = { "mcl_blackstone:blackstone"}
-for s=1, #specialstones do
-	local node = specialstones[s]
-	minetest.register_ore({
-		ore_type       = "blob",
-		ore            = node,
-		wherein        = {"mcl_blackstone:basalt"},
-		clust_scarcity = 8*8*8,
-		clust_num_ores = 28,
-		clust_size     = 3,
-		y_min          = mcl_vars.mg_nether_min,
-		y_max          = mcl_vars.mg_nether_max,
-	})
-	minetest.register_ore({
-		ore_type       = "blob",
-		ore            = node,
-		wherein        = {"mcl_blackstone:basalt"},
-		clust_scarcity = 8*8*8,
-		clust_num_ores = 40,
-		clust_size     = 5,
-		y_min          = mcl_vars.mg_nether_min,
-		y_max          = mcl_vars.mg_nether_max,
-	})
-end
 
 
 
 
 
 
---Biomes
-
-
-
-	minetest.register_biome({
-		name = "Basalt_Deltas",
-		node_filler = "mcl_blackstone:basalt",
-		node_stone = "mcl_blackstone:basalt",
-		node_water = "air",
-		node_river_water = "air",
-		y_min = mcl_vars.mg_nether_min,
-		node_riverbed = "mcl_core:lava_source",
-		depth_riverbed = 2,
-		y_max = mcl_vars.mg_nether_max,
-		humidity_point = 36,
-		heat_point = 100,
-		spread = {x = 1, y = 1, z = 1},
-		humidity_point = 0,
-		_mcl_biome_type = "hot",
-		_mcl_palette_index = 12,
-	})
-
-
-
-	-- Magma blocks
-	minetest.register_ore({
-		ore_type       = "blob",
-		ore            = "mcl_nether:magma",
-		wherein         = {"mcl_blackstone:basalt", "mcl_core:stone"},
-		clust_scarcity = 8*8*8,
-		clust_num_ores = 45,
-		clust_size     = 6,
-		y_min          = mcl_worlds.layer_to_y(23, "nether"),
-		y_max          = mcl_worlds.layer_to_y(37, "nether"),
-	})
-	minetest.register_ore({
-		ore_type       = "blob",
-		ore            = "mcl_nether:magma",
-		wherein        = {"mcl_blackstone:basalt"},
-		clust_scarcity = 10*10*10,
-		clust_num_ores = 65,
-		clust_size     = 8,
-		y_min          = mcl_worlds.layer_to_y(23, "nether"),
-		y_max          = mcl_worlds.layer_to_y(37, "nether"),
-	})
-
-	-- Glowstone
-	minetest.register_ore({
-		ore_type        = "blob",
-		ore             = "mcl_nether:glowstone",
-		wherein         = {"mcl_blackstone:basalt", "mcl_core:stone"},
-		clust_scarcity  = 26 * 26 * 26,
-		clust_size      = 5,
-		y_min           = mcl_vars.mg_lava_nether_max + 10,
-		y_max           = mcl_vars.mg_nether_max,
-		noise_threshold = 0.0,
-		noise_params    = {
-			offset = 0.5,
-			scale = 0.1,
-			spread = {x = 5, y = 5, z = 5},
-			seed = 17676,
-			octaves = 1,
-			persist = 0.0
-		},
-	})
-
-	-- Gravel (Nether)
-	minetest.register_ore({
-		ore_type        = "sheet",
-		ore             = "mcl_core:gravel",
-		wherein         = {"mcl_blackstone:basalt", "mcl_core:stone"},
-		column_height_min = 1,
-		column_height_max = 1,
-		column_midpoint_factor = 0,
-		y_min           = mcl_worlds.layer_to_y(63, "nether"),
-		-- This should be 65, but for some reason with this setting, the sheet ore really stops at 65. o_O
-		y_max           = mcl_worlds.layer_to_y(65+2, "nether"),
-		noise_threshold = 0.2,
-		noise_params    = {
-			offset = 0.0,
-			scale = 0.5,
-			spread = {x = 20, y = 20, z = 20},
-			seed = 766,
-			octaves = 3,
-			persist = 0.6,
-		},
-	})
-	minetest.register_ore({
-		ore_type       = "scatter",
-		ore            = "mcl_nether:nether_lava_source",
-		wherein         = {"mcl_blackstone:basalt", "mcl_core:stone"},
-		clust_scarcity = 500,
-		clust_num_ores = 1,
-		clust_size     = 1,
-		y_min           = mcl_vars.mg_nether_min,
-		y_max           = mcl_vars.mg_lava_nether_max + 1,
-	})
-
-	minetest.register_ore({
-		ore_type       = "scatter",
-		ore            = "mcl_nether:nether_lava_source",
-		wherein         = {"mcl_blackstone:basalt", "mcl_core:stone"},
-		clust_scarcity = 1000,
-		clust_num_ores = 1,
-		clust_size     = 1,
-		y_min           = mcl_vars.mg_lava_nether_max + 2,
-		y_max           = mcl_vars.mg_lava_nether_max + 12,
-	})
-
-	minetest.register_ore({
-		ore_type       = "scatter",
-		ore            = "mcl_nether:nether_lava_source",
-		wherein         = {"mcl_blackstone:basalt", "mcl_core:stone"},
-		clust_scarcity = 2000,
-		clust_num_ores = 1,
-		clust_size     = 1,
-		y_min           = mcl_vars.mg_lava_nether_max + 13,
-		y_max           = mcl_vars.mg_lava_nether_max + 48,
-	})
-	minetest.register_ore({
-		ore_type       = "scatter",
-		ore            = "mcl_nether:nether_lava_source",
-		wherein         = {"mcl_blackstone:basalt", "mcl_core:stone"},
-		clust_scarcity = 3500,
-		clust_num_ores = 1,
-		clust_size     = 1,
-		y_min           = mcl_vars.mg_lava_nether_max + 49,
-		y_max           = mcl_vars.mg_nether_max,
-	})
-
-
-local specialstones = { "mcl_nether:netherrack"}
-for s=1, #specialstones do
-	local node = specialstones[s]
-	minetest.register_ore({
-		ore_type       = "blob",
-		ore            = node,
-		wherein        = {"mcl_blackstone:basalt"},
-		clust_scarcity = 8*8*8,
-		clust_num_ores = 28,
-		clust_size     = 3,
-		y_min          = mcl_vars.mg_nether_min,
-		y_max          = mcl_vars.mg_nether_max,
-	})
-	minetest.register_ore({
-		ore_type       = "blob",
-		ore            = node,
-		wherein        = {"mcl_blackstone:basalt"},
-		clust_scarcity = 8*8*8,
-		clust_num_ores = 40,
-		clust_size     = 5,
-		y_min          = mcl_vars.mg_nether_min,
-		y_max          = mcl_vars.mg_nether_max,
-	})
-end
-]]--
-
-
-
-
-
---torches
+--torches   (parts are copied from mineclone2)
 local spawn_flames_floor = function(pos)
 	-- Flames
 	mcl_particles.add_node_particlespawner(pos, {
@@ -1133,6 +859,7 @@ minetest.register_node("mcl_blackstone:soul_lantern", {
 		paramtype = "light",
 		paramtype2 = "facedir",
 		_mcl_hardness = 1,
+		-- Node box by debiankaios
     node_box = {
       type = "fixed",
 	    fixed = {
